@@ -112,6 +112,12 @@ Run the following command for executing test (for specify file)
 npm run test [file_path]
 ```
 
+for example:
+
+```sh
+npm run test src/users/infrastructure/rdb-repository/user/index.spec.ts
+```
+
 ### By Docker
 
 After starting up the docker container for both database and server
@@ -136,6 +142,12 @@ Run the following command for executing test (for specify file)
 
 ```sh
 docker exec restful-user-app-nest-1 npm run test [file_path]
+```
+
+for example:
+
+```sh
+docker exec restful-user-app-nest-1 npm run test src/users/infrastructure/rdb-repository/user/index.spec.ts
 ```
 
 ## Architecture
