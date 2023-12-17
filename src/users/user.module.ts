@@ -10,6 +10,8 @@ import { UserFactory } from './domain/factory/user';
 
 import { SignupCommandHandler } from './application/command/signup/handler';
 import { SigninCommandHandler } from './application/command/signin/handler';
+import { GetUserQueryHandler } from './application/query/get-user/handler';
+
 import { InjectionToken } from './application/injection-token';
 
 const InfrastructureProviders: Provider[] = [
@@ -21,7 +23,7 @@ const InfrastructureProviders: Provider[] = [
 
 const Factories = [UserFactory];
 
-const QueryHandlers = [];
+const QueryHandlers = [GetUserQueryHandler];
 const CommandHandlers = [SignupCommandHandler, SigninCommandHandler];
 
 @Module({
