@@ -71,7 +71,7 @@ Two containers:
 Run the following command for migrating
 
 ```sh
-docker exec restful-user-app-nest-1 npm run migration:run
+docker exec restful-app-nest-1 npm run migration:run
 ```
 
 #### Step 3 (check server is running or not)
@@ -127,7 +127,7 @@ After starting up the docker container for both database and server
 Run the following command for test database migrating
 
 ```sh
-docker exec restful-user-app-nest-1 npm run migration:test:run
+docker exec restful-app-nest-1 npm run migration:test:run
 ```
 
 #### Step 2 (execute the test)
@@ -135,19 +135,19 @@ docker exec restful-user-app-nest-1 npm run migration:test:run
 Run the following command for executing test (for all)
 
 ```sh
-docker exec restful-user-app-nest-1 npm run test
+docker exec restful-app-nest-1 npm run test
 ```
 
 Run the following command for executing test (for specify file)
 
 ```sh
-docker exec restful-user-app-nest-1 npm run test [file_path]
+docker exec restful-app-nest-1 npm run test [file_path]
 ```
 
 for example:
 
 ```sh
-docker exec restful-user-app-nest-1 npm run test src/users/infrastructure/rdb-repository/user/index.spec.ts
+docker exec restful-app-nest-1 npm run test src/users/infrastructure/rdb-repository/user/index.spec.ts
 ```
 
 ## Architecture
