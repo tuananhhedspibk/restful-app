@@ -114,6 +114,10 @@ describe('DeleteUserCommand Handler testing', () => {
         expect(error.code).toEqual(CommandErrorCode.BAD_REQUEST);
       });
 
+      it('Error message is correct', () => {
+        expect(error.message).toEqual('Unauthorized to delete user');
+      });
+
       it('Error detail code is UNAUTHORIZED', () => {
         expect(error.info.errorCode).toEqual(
           CommandErrorDetailCode.UNAUTHORIZED,
@@ -141,6 +145,10 @@ describe('DeleteUserCommand Handler testing', () => {
 
       it('Error code is BAD_REQUEST', () => {
         expect(error.code).toEqual(CommandErrorCode.BAD_REQUEST);
+      });
+
+      it('Error message is correct', () => {
+        expect(error.message).toEqual('User not found');
       });
 
       it('Error detail code is UNAUTHORIZED', () => {
