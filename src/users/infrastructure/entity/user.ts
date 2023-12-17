@@ -21,4 +21,9 @@ export class UserEntity extends BaseEntity {
     nullable: false,
   })
   password: string;
+
+  @Column({
+    nullable: false,
+  })
+  salt: string;
 }
