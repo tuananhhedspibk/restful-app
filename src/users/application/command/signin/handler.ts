@@ -67,7 +67,7 @@ export class SigninCommandHandler {
         token,
       };
     } catch (err) {
-      console.log(err);
+      console.error(err.stack);
       if (
         err instanceof DomainError ||
         err instanceof CommandError ||

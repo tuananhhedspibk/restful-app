@@ -2,24 +2,22 @@ import { CommandHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
 
 import { SignupCommand } from './command';
+import { InjectionToken } from '../../injection-token';
+
 import { UserFactory } from '../../../domain/factory/user';
 import { UserAggregate } from '../../../domain/aggregate/user';
+import { IUserRepository } from '../../../domain/repository/user';
+
 import {
   CommandError,
   CommandErrorCode,
   CommandErrorDetailCode,
 } from '@libs/exception/application/command';
-import { InjectionToken } from '../../injection-token';
-import { IUserRepository } from '../../../domain/repository/user';
 import { InfrastructureError } from '@libs/exception/infrastructure';
 import { DomainError } from '@libs/exception/domain';
+
 import { hashPassword, randomlyGenerateSalt } from '@utils/encrypt';
-
-// Strictly formating email in format "xxxx@yyyy.zzzz"
-const mailRegex = new RegExp('.+@.+..+');
-
-// Password must have at least 8 characters, at least one character and one number
-const passwordRegex = new RegExp('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$');
+import { mailRegex, passwordRegex } from '@utils/constants';
 
 @CommandHandler(SignupCommand)
 export class SignupCommandHandler {
@@ -97,6 +95,7 @@ export class SignupCommandHandler {
 
       await this.userRepository.create(userAggregate);
     } catch (err) {
+      console.error(err.stack);
       if (
         err instanceof DomainError ||
         err instanceof CommandError ||
