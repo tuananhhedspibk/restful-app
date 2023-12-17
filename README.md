@@ -6,8 +6,8 @@ RESTful API that allows users to create, retrieve, update, and delete data on a 
 
 ## Requirement
 
-node >= 18.18.0
-postgres: 16.1
+- node >= 18.18.0
+- postgres: 16.1
 
 ## Starting up project
 
