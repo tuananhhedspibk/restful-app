@@ -23,6 +23,8 @@ npm install
 
 #### Step 2 (run migration for database)
 
+Remember create `rest_app` database before migrating.
+
 Run the following command for migrating
 
 ```sh
@@ -87,6 +89,8 @@ You can see this demo video (basically it's the operation on the swagger UI to t
 ### By CLI
 
 #### Step 1 (run migration for test)
+
+Remember create `rest_app_test` database before migrating.
 
 Run the following command for test database migrating
 
