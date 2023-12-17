@@ -1,73 +1,175 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Restful User App
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+RESTful API that allows users to create, retrieve, update, and delete data on a PostgreSQL database
 
-## Description
+## Requirement
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+node >= 18.18.0
 
-## Installation
+## Starting up project
 
-```bash
-$ npm install
+### By CLI
+
+#### Step 1 (install needed depedencies)
+
+Run the following command in root folder to install needed depedencies
+
+```sh
+npm install
 ```
 
-## Running the app
+#### Step 2 (run migration for database)
 
-```bash
-# development
-$ npm run start
+Run the following command for migrating
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```sh
+npm run migration:run
 ```
 
-## Test
+#### Step 3 (startup the server)
 
-```bash
-# unit tests
-$ npm run test
+Run the following command in root folder to startup the server
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```sh
+npm run start:dev
 ```
 
-## Support
+#### Step 3 (check server is running or not)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Open browser and go to link `http://localhost:3000/swagger` or `http://127.0.0.1:3000/swagger` for swagger UI and begin testing the API
 
-## Stay in touch
+#### Step 4 (test the API)
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+You can see this demo video (basically it's the operation on the swagger UI to test the API)
 
-## License
+<https://drive.google.com/file/d/1XjYMPrwpI8MUrX9i7IvvVlyUweU7LAyY/view>
 
-Nest is [MIT licensed](LICENSE).
+### By docker
+
+#### Step 1 (startup docker containers)
+
+Run the following command in root folder
+
+```sh
+docker compose up -d
+```
+
+![Screen Shot 2023-12-17 at 19 52 28](https://github.com/tuananhhedspibk/restful-app/assets/15076665/83ab41ca-73c6-47f9-a30a-477ace4e6be9)
+
+Two containers:
+
+1. restful-user-app-database-1 listens on 5432 port (for postgres database)
+2. restful-user-app-nest-1 listens on 3000 port (for server code)
+
+#### Step 2 (run migration for database)
+
+Run the following command for migrating
+
+```sh
+docker exec restful-user-app-nest-1 npm run migration:run
+```
+
+#### Step 3 (check server is running or not)
+
+Open browser and go to link `http://localhost:3000/swagger` or `http://127.0.0.1:3000/swagger` for swagger UI and begin testing the API
+
+#### Step 4 (test the API)
+
+You can see this demo video (basically it's the operation on the swagger UI to test the API)
+
+<https://drive.google.com/file/d/1XjYMPrwpI8MUrX9i7IvvVlyUweU7LAyY/view>
+
+## Run unit test
+
+### By CLI
+
+#### Step 1 (run migration for test)
+
+Run the following command for test database migrating
+
+```sh
+npm run migration:test:run
+```
+
+#### Step 2 (execute the test)
+
+Run the following command for executing test (for all)
+
+```sh
+npm run test
+```
+
+Run the following command for executing test (for specify file)
+
+```sh
+npm run test [file_path]
+```
+
+### By Docker
+
+After starting up the docker container for both database and server
+
+#### Step 1 (run migration for test)
+
+Run the following command for test database migrating
+
+```sh
+docker exec restful-user-app-nest-1 npm run migration:test:run
+```
+
+#### Step 2 (execute the test)
+
+Run the following command for executing test (for all)
+
+```sh
+docker exec restful-user-app-nest-1 npm run test
+```
+
+Run the following command for executing test (for specify file)
+
+```sh
+docker exec restful-user-app-nest-1 npm run test [file_path]
+```
+
+## Architecture
+
+### Using DDD and clean architecture here
+
+![Screen Shot 2023-12-17 at 20 20 18](https://github.com/tuananhhedspibk/restful-app/assets/15076665/6a63bc7e-8227-4182-abbf-699c8db23e58)
+
+### Have 4 main layers:
+
+- domain: business domain logic will be here
+- application: feature logic will be here
+- presentation: API endpoints will be here
+- infrastructure: interacts with external system (DB, APIs, ...)
+
+In application layer, I split it into
+
+- command: for updating, creating and deleting data logic.
+- query: for getting data logic only.
+
+### Notice about Depedency Inversion principal here
+
+![Screen Shot 2023-12-17 at 20 25 56](https://github.com/tuananhhedspibk/restful-app/assets/15076665/83885e17-766b-4a95-9c4e-b26d52182215)
+
+The inside layer will never be depending on the outside layer, for example:
+
+- domain will never be depending on application
+- application will never be depending on presentation
+
+And the outside layer will never be depending on the inside layer, for example:
+
+- application will never be depending on domain
+- presentation will never be depending on application
+
+### Each layer will have its own Error Class
+
+- domain will have `DomainError`
+- application will have `CommandError` and `QueryError`
+- presentation will have `PresentationError`
+- infrastructure will have `InfrastructureError`
+
+See `libs/exception` folder for more details.
