@@ -35,6 +35,8 @@ import { SigninCommand } from '../application/command/signin/command';
 import { SigninCommandHandler } from '../application/command/signin/handler';
 import { UpdateUserCommand } from '../application/command/update-user/command';
 import { UpdateUserCommandHandler } from '../application/command/update-user/handler';
+import { DeleteUserCommand } from '../application/command/delete-user/command';
+import { DeleteUserCommandHandler } from '../application/command/delete-user/handler';
 
 import { TransactionInterceptor } from '@libs/interceptor/transaction';
 import { AuthGuard } from '@libs/guard/auth';
@@ -46,6 +48,7 @@ export class UserController {
     private readonly signinCommandHandler: SigninCommandHandler,
     private readonly getUserQueryHandler: GetUserQueryHandler,
     private readonly updateUserCommandHandler: UpdateUserCommandHandler,
+    private readonly deleteUserCommandHandler: DeleteUserCommandHandler,
   ) {}
 
   @Version('1')
@@ -130,7 +133,18 @@ export class UserController {
     type: String,
     name: 'id',
   })
+  @ApiBearerAuth()
   @UseInterceptors(TransactionInterceptor)
   @UseGuards(AuthGuard)
-  async deleteUser() {}
+  async deleteUser(
+    @Request() req: ExpressRequest,
+    @Param() param: { id: string },
+  ) {
+    const command = new DeleteUserCommand({ id: param.id });
+
+    await this.deleteUserCommandHandler.execute(command, {
+      id: req['user'].userId,
+      email: req['user'].email,
+    });
+  }
 }

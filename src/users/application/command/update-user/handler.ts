@@ -53,7 +53,7 @@ export class UpdateUserCommandHandler {
           code: CommandErrorCode.BAD_REQUEST,
           message: 'Unauthorized to update user',
           info: {
-            errorCode: CommandErrorDetailCode.UNAUTHOIZED,
+            errorCode: CommandErrorDetailCode.UNAUTHORIZED,
           },
         });
       }
@@ -82,7 +82,7 @@ export class UpdateUserCommandHandler {
           code: CommandErrorCode.BAD_REQUEST,
           message: 'Unauthorized',
           info: {
-            errorCode: CommandErrorDetailCode.UNAUTHOIZED,
+            errorCode: CommandErrorDetailCode.UNAUTHORIZED,
           },
         });
       }

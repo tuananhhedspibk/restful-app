@@ -42,7 +42,7 @@ export class GetUserQueryHandler {
           code: QueryErrorCode.BAD_REQUEST,
           message: 'Unauthorized',
           info: {
-            errorCode: QueryErrorDetailCode.UNAUTHOIZED,
+            errorCode: QueryErrorDetailCode.UNAUTHORIZED,
           },
         });
       }

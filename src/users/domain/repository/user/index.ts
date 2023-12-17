@@ -7,4 +7,5 @@ export abstract class IUserRepository extends IBaseRepository {
   findById: (id: string) => Promise<UserAggregate | null>;
   create: (aggregate: UserAggregate) => Promise<UserAggregate>;
   update: (aggregate: UserAggregate) => Promise<UserAggregate>;
+  delete: (id: string) => Promise<void>;
 }
