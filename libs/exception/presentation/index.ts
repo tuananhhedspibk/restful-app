@@ -8,7 +8,9 @@ export const PresentationErrorCode = {
 export type PresentationErrorCode =
   (typeof PresentationErrorCode)[keyof typeof PresentationErrorCode];
 
-export const PresentationErrorDetailCode = {} as const;
+export const PresentationErrorDetailCode = {
+  UNAUTHOIZED: 'UNAUTHOIZED',
+} as const;
 export type PresentationErrorDetailCode =
   (typeof PresentationErrorDetailCode)[keyof typeof PresentationErrorDetailCode];
 

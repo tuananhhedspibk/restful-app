@@ -8,7 +8,7 @@ function setupSwagger(app: INestApplication): void {
   const documentBuilder = new DocumentBuilder()
     .setTitle('Swagger')
     .setVersion('1.0')
-    .addBasicAuth()
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, documentBuilder);

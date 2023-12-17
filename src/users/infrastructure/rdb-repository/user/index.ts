@@ -9,6 +9,10 @@ import { IUserRepository } from '../../../domain/repository/user';
 import { BaseRepository } from '../base';
 import { UserEntity } from '../../entity/user';
 import { UserFactory } from '../../../domain/factory/user';
+import {
+  InfrastructureError,
+  InfrastructureErrorCode,
+} from '@libs/exception/infrastructure';
 
 @Injectable({ scope: Scope.REQUEST })
 export class UserRepository extends BaseRepository implements IUserRepository {
@@ -20,39 +24,73 @@ export class UserRepository extends BaseRepository implements IUserRepository {
   }
 
   async isEmailExist(email: string): Promise<boolean> {
-    const repository = this.getRepository(UserEntity);
+    try {
+      const repository = this.getRepository(UserEntity);
 
-    const user = await this.getBaseQuery(repository).where({ email }).getOne();
+      const user = await this.getBaseQuery(repository)
+        .where({ email })
+        .getOne();
 
-    return !!user;
+      return !!user;
+    } catch (err) {
+      throw new InfrastructureError({
+        code: InfrastructureErrorCode.INTERNAL_SERVER_ERROR,
+        message: 'Internal Server Error',
+      });
+    }
   }
 
   async findByEmail(email: string): Promise<UserAggregate | null> {
+    try {
+      const repository = this.getRepository(UserEntity);
+
+      const user = await this.getBaseQuery(repository)
+        .addSelect(['user.password', 'user.salt'])
+        .where({ email })
+        .getOne();
+
+      return user ? this.factory.createAggregate({ ...user }) : null;
+    } catch (err) {
+      throw new InfrastructureError({
+        code: InfrastructureErrorCode.INTERNAL_SERVER_ERROR,
+        message: 'Internal Server Error',
+      });
+    }
+  }
+
+  async findById(id: string): Promise<UserAggregate | null> {
     const repository = this.getRepository(UserEntity);
 
     const user = await this.getBaseQuery(repository)
-      .addSelect(['user.password', 'user.salt'])
-      .where({ email })
+      .addSelect(['user.name'])
+      .where({ id })
       .getOne();
 
     return user ? this.factory.createAggregate({ ...user }) : null;
   }
 
   async create(aggregate: UserAggregate): Promise<UserAggregate> {
-    const repository = this.getRepository(UserEntity);
+    try {
+      const repository = this.getRepository(UserEntity);
 
-    const user = repository.create({
-      email: aggregate.email,
-      password: aggregate.getPassword(),
-      name: aggregate.name,
-      salt: aggregate.getSalt(),
-    });
+      const user = repository.create({
+        email: aggregate.email,
+        password: aggregate.getPassword(),
+        name: aggregate.name,
+        salt: aggregate.getSalt(),
+      });
 
-    await repository.insert(user);
+      await repository.insert(user);
 
-    aggregate.setId(user.id);
+      aggregate.setId(user.id);
 
-    return aggregate;
+      return aggregate;
+    } catch (err) {
+      throw new InfrastructureError({
+        code: InfrastructureErrorCode.INTERNAL_SERVER_ERROR,
+        message: 'Internal Server Error',
+      });
+    }
   }
 
   private getBaseQuery(repository: Repository<UserEntity>) {
