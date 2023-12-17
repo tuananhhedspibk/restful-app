@@ -16,13 +16,13 @@
     "migration:generate": "ts-node ./node_modules/typeorm/cli migration:generate -d ./config/rdb.ts ./migrations/$npm_config_name",
     "migration:revert": "ts-node ./node_modules/typeorm/cli -d ./config/rdb.ts migration:revert",
     "migration:run": "ts-node ./node_modules/typeorm/cli migration:run -d ./config/rdb.ts",
-    "migration:test:revert": "DATABASE_NAME=rest_app_test ts-node ./node_modules/typeorm/cli -d ./config/rdb.ts migration:revert",
-    "migration:test:run": "DATABASE_NAME=rest_app_test ts-node ./node_modules/typeorm/cli migration:run -d ./config/rdb.ts",
-    "test": "DATABASE_NAME=rest_app_test jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "migration:test:revert": "NODE_ENV=test ts-node ./node_modules/typeorm/cli -d ./config/rdb.ts migration:revert",
+    "migration:test:run": "NODE_ENV=test ts-node ./node_modules/typeorm/cli migration:run -d ./config/rdb.ts",
+    "test": "NODE_ENV=test jest",
+    "test:watch": "NODE_ENV=test jest --watch",
+    "test:cov": "NODE_ENV=test jest --coverage",
+    "test:debug": "NODE_ENV=test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "NODE_ENV=test jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

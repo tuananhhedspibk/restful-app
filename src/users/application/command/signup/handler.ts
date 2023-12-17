@@ -91,6 +91,9 @@ export class SignupCommandHandler {
       userAggregate.setEmail(email);
       userAggregate.setPassword(hashedPassword);
       userAggregate.setName(name);
+
+      // For security purpose, each user will have her own salt for hashing password
+      // and this salt will be stored in the database for checking password when user login
       userAggregate.setSalt(salt);
 
       await this.userRepository.create(userAggregate);
