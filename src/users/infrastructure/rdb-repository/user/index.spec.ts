@@ -25,7 +25,7 @@ describe('UserRepository Testing', () => {
           type: 'postgres',
           host: rdbConfig.host,
           port: rdbConfig.port,
-          database: process.env.DATABASE_NAME || 'rest_app_test',
+          database: rdbConfig.database,
           username: rdbConfig.username,
           password: rdbConfig.password,
           entities: rdbConfig.entities,
