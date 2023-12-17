@@ -9,7 +9,7 @@ export type QueryErrorCode =
   (typeof QueryErrorCode)[keyof typeof QueryErrorCode];
 
 export const QueryErrorDetailCode = {
-  UNAUTHOIZED: 'UNAUTHOIZED',
+  UNAUTHORIZED: 'UNAUTHORIZED',
   USER_ID_CAN_NOT_BE_EMPTY: 'USER_ID_CAN_NOT_BE_EMPTY',
   USER_NOT_FOUND: 'USER_NOT_FOUND',
 } as const;
