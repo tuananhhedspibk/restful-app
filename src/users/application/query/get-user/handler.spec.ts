@@ -123,8 +123,8 @@ describe('GetUserQuery Handler testing', () => {
       it('Error code is BAD_REQUEST', () => {
         expect(error.code).toBe(QueryErrorCode.BAD_REQUEST);
       });
-      it('Error detail code is UNAUTHOIZED', () => {
-        expect(error.info.errorCode).toBe(QueryErrorDetailCode.UNAUTHOIZED);
+      it('Error detail code is UNAUTHORIZED', () => {
+        expect(error.info.errorCode).toBe(QueryErrorDetailCode.UNAUTHORIZED);
       });
     });
 
