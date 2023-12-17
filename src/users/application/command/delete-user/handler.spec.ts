@@ -135,7 +135,7 @@ describe('DeleteUserCommand Handler testing', () => {
 
         try {
           await commandHandler.execute(command, {
-            id: 'another-user-id',
+            id: 'target-user-id',
             email: 'test@email.com',
           });
         } catch (err) {
@@ -143,17 +143,17 @@ describe('DeleteUserCommand Handler testing', () => {
         }
       });
 
-      it('Error code is BAD_REQUEST', () => {
-        expect(error.code).toEqual(CommandErrorCode.BAD_REQUEST);
+      it('Error code is NOT_FOUND', () => {
+        expect(error.code).toEqual(CommandErrorCode.NOT_FOUND);
       });
 
       it('Error message is correct', () => {
         expect(error.message).toEqual('User not found');
       });
 
-      it('Error detail code is UNAUTHORIZED', () => {
+      it('Error detail code is USER_NOT_FOUND', () => {
         expect(error.info.errorCode).toEqual(
-          CommandErrorDetailCode.UNAUTHORIZED,
+          CommandErrorDetailCode.USER_NOT_FOUND,
         );
       });
     });
