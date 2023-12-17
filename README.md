@@ -8,7 +8,7 @@ RESTful API that allows users to create, retrieve, update, and delete data on a 
 
 - node >= 18.18.0
 - postgres >= 16.1
-- docker >= 20.10.6 (interigating compose version)
+- docker >= 20.10.6 (intergrating docker-compose version)
 
 ## Starting up project
 
