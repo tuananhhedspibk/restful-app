@@ -7,7 +7,8 @@ RESTful API that allows users to create, retrieve, update, and delete data on a 
 ## Requirement
 
 - node >= 18.18.0
-- postgres: 16.1
+- postgres >= 16.1
+- docker >= 20.10.6 (interigating compose version)
 
 ## Starting up project
 
@@ -63,8 +64,16 @@ docker compose up -d
 
 Two containers:
 
-1. restful-user-app-database-1 listens on 5432 port (for postgres database)
-2. restful-user-app-nest-1 listens on 3000 port (for server code)
+1. restful-app-database-1 listens on 5432 port (for postgres database)
+2. restful-app-nest-1 listens on 3000 port (for server code)
+
+Please notice that the containers name maybe different in your local machine, to confirm container name, try to run:
+
+```sh
+docker ps
+```
+
+and pay attention to the containers those have `restful-app` prefix in name.
 
 #### Step 2 (run migration for database)
 
@@ -190,3 +199,15 @@ And the outside layer will never be depending on the inside layer, for example:
 - infrastructure will have `InfrastructureError`
 
 See `libs/exception` folder for more details.
+
+## Additional
+
+### Migration generate
+
+Run the following command
+
+```sh
+npm run migration:generate --name="MigrationName"
+```
+
+to create new migration if you want.
