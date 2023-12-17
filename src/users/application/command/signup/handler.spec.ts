@@ -36,6 +36,7 @@ describe('SignupCommand Handler testing', () => {
             isEmailExist: jest.fn(),
             create: jest.fn(),
             findByEmail: jest.fn(),
+            findById: jest.fn(),
           },
         },
       ],
