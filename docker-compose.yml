@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  nest:
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    environment:
+      - DATABASE_HOST=database
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=user
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=rest_app
+      - DATABASE_NAME_TEST=rest_app_test
+    ports:
+      - 3000:3000
+
+  database:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=user
+      - POSTGRES_DB=rest_app
+    volumes:
+      - ./create_second_db.sh:/docker-entrypoint-initdb.d/create_second_db.sh

@@ -1,0 +1,10 @@
+node_modules
+.vscode
+.git*
+Dockerfile*
+*.yml
+dist
+*.md
+.env*
+.eslintrc.js
+*ignore
