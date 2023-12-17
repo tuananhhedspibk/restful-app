@@ -12,7 +12,9 @@ export class BaseRepository implements IBaseRepository {
 
   protected getRepository<T>(entityClass: new () => T): Repository<T> {
     const entityManager: EntityManager =
-      this.request[ENTITY_MANAGER_KEY] ?? this.dataSource.manager;
+      this.request && this.request[ENTITY_MANAGER_KEY]
+        ? this.request[ENTITY_MANAGER_KEY]
+        : this.dataSource.manager;
 
     return entityManager.getRepository(entityClass);
   }
