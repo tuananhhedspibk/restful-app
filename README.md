@@ -188,8 +188,8 @@ The inside layer will never be depending on the outside layer, for example:
 
 And the outside layer will never be depending on the inside layer, for example:
 
-- application will never be depending on domain
-- presentation will never be depending on application
+- application will be depending on domain
+- presentation will be depending on application
 
 ### Each layer will have its own Error Class
 
