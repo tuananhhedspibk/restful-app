@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
         code: PresentationErrorCode.BAD_REQUEST,
         message: 'Unauthorized',
         info: {
-          errorCode: PresentationErrorDetailCode.UNAUTHOIZED,
+          errorCode: PresentationErrorDetailCode.UNAUTHORIZED,
         },
       });
     }
@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate {
         code: PresentationErrorCode.BAD_REQUEST,
         message: 'Unauthorized',
         info: {
-          errorCode: PresentationErrorDetailCode.UNAUTHOIZED,
+          errorCode: PresentationErrorDetailCode.UNAUTHORIZED,
         },
       });
     }
@@ -45,7 +45,7 @@ export class AuthGuard implements CanActivate {
         code: PresentationErrorCode.BAD_REQUEST,
         message: 'Unauthorized',
         info: {
-          errorCode: PresentationErrorDetailCode.UNAUTHOIZED,
+          errorCode: PresentationErrorDetailCode.UNAUTHORIZED,
         },
       });
     }

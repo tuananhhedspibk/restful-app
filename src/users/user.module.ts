@@ -15,6 +15,7 @@ import { UpdateUserCommandHandler } from './application/command/update-user/hand
 import { GetUserQueryHandler } from './application/query/get-user/handler';
 
 import { InjectionToken } from './application/injection-token';
+import { DeleteUserCommandHandler } from './application/command/delete-user/handler';
 
 const InfrastructureProviders: Provider[] = [
   {
@@ -30,6 +31,7 @@ const CommandHandlers = [
   SignupCommandHandler,
   SigninCommandHandler,
   UpdateUserCommandHandler,
+  DeleteUserCommandHandler,
 ];
 
 @Module({

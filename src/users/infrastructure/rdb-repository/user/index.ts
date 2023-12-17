@@ -136,6 +136,25 @@ export class UserRepository extends BaseRepository implements IUserRepository {
     }
   }
 
+  async delete(id: string): Promise<void> {
+    try {
+      const repository = this.getRepository(UserEntity);
+
+      await repository.delete(id);
+    } catch (err) {
+      console.error(err.stack);
+
+      if (err instanceof InfrastructureError) {
+        throw err;
+      }
+
+      throw new InfrastructureError({
+        code: InfrastructureErrorCode.INTERNAL_SERVER_ERROR,
+        message: 'Internal Server Error',
+      });
+    }
+  }
+
   private getBaseQuery(repository: Repository<UserEntity>) {
     return repository
       .createQueryBuilder('user')

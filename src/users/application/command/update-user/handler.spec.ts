@@ -196,9 +196,9 @@ describe('UpdateUserCommand Handler testing', () => {
         expect(error.code).toEqual(CommandErrorCode.BAD_REQUEST);
       });
 
-      it('Error detail code is UNAUTHOIZED', () => {
+      it('Error detail code is UNAUTHORIZED', () => {
         expect(error.info.errorCode).toEqual(
-          CommandErrorDetailCode.UNAUTHOIZED,
+          CommandErrorDetailCode.UNAUTHORIZED,
         );
       });
     });
