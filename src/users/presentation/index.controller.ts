@@ -8,9 +8,15 @@ import {
   UseInterceptors,
   Version,
   Response,
+  UseGuards,
+  Request,
+  Param,
 } from '@nestjs/common';
 
-import { Response as ExpressResponse } from 'express';
+import {
+  Response as ExpressResponse,
+  Request as ExpressRequest,
+} from 'express';
 
 import { SignupCommand } from '../application/command/signup/command';
 import { SignupRequestDto } from './dto/signup-request';
@@ -20,12 +26,19 @@ import { SigninRequestDto } from './dto/signin-request';
 import { SigninCommand } from '../application/command/signin/command';
 import { SigninCommandHandler } from '../application/command/signin/handler';
 import { SigninResponseDto } from './dto/signin-response';
+import { AuthGuard } from '@libs/guard/auth';
+import { ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { GetUserQueryHandler } from '../application/query/get-user/handler';
+import { GetUserQuery } from '../application/query/get-user/query';
+import { GetUserRequestDto } from './dto/get-user-request';
+import { GetUserResponseDto } from './dto/get-user-response';
 
 @Controller('users')
 export class UserController {
   constructor(
     private readonly signupCommandHandler: SignupCommandHandler,
     private readonly signinCommandHandler: SigninCommandHandler,
+    private readonly getUserQueryHandler: GetUserQueryHandler,
   ) {}
 
   @Version('1')
@@ -56,7 +69,30 @@ export class UserController {
 
   @Version('1')
   @Get(':id')
-  async getProfile() {}
+  @ApiBearerAuth()
+  @ApiParam({
+    description: 'User Id',
+    type: String,
+    name: 'id',
+  })
+  @UseInterceptors(TransactionInterceptor)
+  @UseGuards(AuthGuard)
+  async getUser(
+    @Request() req: ExpressRequest,
+    @Param() param: GetUserRequestDto,
+    @Response() response: ExpressResponse<GetUserResponseDto>,
+  ) {
+    const query = new GetUserQuery({
+      id: param.id,
+    });
+
+    const result = await this.getUserQueryHandler.execute(query, {
+      id: req['user'].userId,
+      email: req['user'].email,
+    });
+
+    response.send(result);
+  }
 
   @Version('1')
   @Put(':id')
