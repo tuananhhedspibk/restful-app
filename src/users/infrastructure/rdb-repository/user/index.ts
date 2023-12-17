@@ -33,6 +33,8 @@ export class UserRepository extends BaseRepository implements IUserRepository {
 
       return !!user;
     } catch (err) {
+      console.error(err.stack);
+
       throw new InfrastructureError({
         code: InfrastructureErrorCode.INTERNAL_SERVER_ERROR,
         message: 'Internal Server Error',
@@ -51,6 +53,8 @@ export class UserRepository extends BaseRepository implements IUserRepository {
 
       return user ? this.factory.createAggregate({ ...user }) : null;
     } catch (err) {
+      console.error(err.stack);
+
       throw new InfrastructureError({
         code: InfrastructureErrorCode.INTERNAL_SERVER_ERROR,
         message: 'Internal Server Error',
@@ -59,14 +63,23 @@ export class UserRepository extends BaseRepository implements IUserRepository {
   }
 
   async findById(id: string): Promise<UserAggregate | null> {
-    const repository = this.getRepository(UserEntity);
+    try {
+      const repository = this.getRepository(UserEntity);
 
-    const user = await this.getBaseQuery(repository)
-      .addSelect(['user.name'])
-      .where({ id })
-      .getOne();
+      const user = await this.getBaseQuery(repository)
+        .addSelect(['user.name', 'user.salt'])
+        .where({ id })
+        .getOne();
 
-    return user ? this.factory.createAggregate({ ...user }) : null;
+      return user ? this.factory.createAggregate({ ...user }) : null;
+    } catch (err) {
+      console.error(err.stack);
+
+      throw new InfrastructureError({
+        code: InfrastructureErrorCode.INTERNAL_SERVER_ERROR,
+        message: 'Internal Server Error',
+      });
+    }
   }
 
   async create(aggregate: UserAggregate): Promise<UserAggregate> {
@@ -86,6 +99,36 @@ export class UserRepository extends BaseRepository implements IUserRepository {
 
       return aggregate;
     } catch (err) {
+      console.error(err.stack);
+
+      throw new InfrastructureError({
+        code: InfrastructureErrorCode.INTERNAL_SERVER_ERROR,
+        message: 'Internal Server Error',
+      });
+    }
+  }
+
+  async update(aggregate: UserAggregate): Promise<UserAggregate> {
+    try {
+      const repository = this.getRepository(UserEntity);
+
+      const user = repository.create({
+        email: aggregate.email,
+        password: aggregate.getPassword(),
+        name: aggregate.name,
+        salt: aggregate.getSalt(),
+      });
+
+      await repository.update(aggregate.getId(), user);
+
+      return aggregate;
+    } catch (err) {
+      console.error(err.stack);
+
+      if (err instanceof InfrastructureError) {
+        throw err;
+      }
+
       throw new InfrastructureError({
         code: InfrastructureErrorCode.INTERNAL_SERVER_ERROR,
         message: 'Internal Server Error',

@@ -12,26 +12,32 @@ import {
   Request,
   Param,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 
 import {
   Response as ExpressResponse,
   Request as ExpressRequest,
 } from 'express';
 
-import { SignupCommand } from '../application/command/signup/command';
 import { SignupRequestDto } from './dto/signup-request';
-import { TransactionInterceptor } from '@libs/interceptor/transaction';
-import { SignupCommandHandler } from '../application/command/signup/handler';
 import { SigninRequestDto } from './dto/signin-request';
-import { SigninCommand } from '../application/command/signin/command';
-import { SigninCommandHandler } from '../application/command/signin/handler';
 import { SigninResponseDto } from './dto/signin-response';
-import { AuthGuard } from '@libs/guard/auth';
-import { ApiBearerAuth, ApiParam } from '@nestjs/swagger';
-import { GetUserQueryHandler } from '../application/query/get-user/handler';
-import { GetUserQuery } from '../application/query/get-user/query';
 import { GetUserRequestDto } from './dto/get-user-request';
 import { GetUserResponseDto } from './dto/get-user-response';
+import { UpdateUserRequestDto } from './dto/update-user-request';
+
+import { GetUserQueryHandler } from '../application/query/get-user/handler';
+import { GetUserQuery } from '../application/query/get-user/query';
+
+import { SignupCommand } from '../application/command/signup/command';
+import { SignupCommandHandler } from '../application/command/signup/handler';
+import { SigninCommand } from '../application/command/signin/command';
+import { SigninCommandHandler } from '../application/command/signin/handler';
+import { UpdateUserCommand } from '../application/command/update-user/command';
+import { UpdateUserCommandHandler } from '../application/command/update-user/handler';
+
+import { TransactionInterceptor } from '@libs/interceptor/transaction';
+import { AuthGuard } from '@libs/guard/auth';
 
 @Controller('users')
 export class UserController {
@@ -39,6 +45,7 @@ export class UserController {
     private readonly signupCommandHandler: SignupCommandHandler,
     private readonly signinCommandHandler: SigninCommandHandler,
     private readonly getUserQueryHandler: GetUserQueryHandler,
+    private readonly updateUserCommandHandler: UpdateUserCommandHandler,
   ) {}
 
   @Version('1')
@@ -96,9 +103,34 @@ export class UserController {
 
   @Version('1')
   @Put(':id')
-  async updateProfile() {}
+  @ApiParam({
+    description: 'User Id',
+    type: String,
+    name: 'id',
+  })
+  @ApiBearerAuth()
+  @UseInterceptors(TransactionInterceptor)
+  @UseGuards(AuthGuard)
+  async updateUser(
+    @Request() req: ExpressRequest,
+    @Param() param: { id: string },
+    @Body() body: UpdateUserRequestDto,
+  ) {
+    const command = new UpdateUserCommand({ id: param.id, ...body });
+    await this.updateUserCommandHandler.execute(command, {
+      id: req['user'].userId,
+      email: req['user'].email,
+    });
+  }
 
   @Version('1')
   @Delete(':id')
-  async withdraw() {}
+  @ApiParam({
+    description: 'User Id',
+    type: String,
+    name: 'id',
+  })
+  @UseInterceptors(TransactionInterceptor)
+  @UseGuards(AuthGuard)
+  async deleteUser() {}
 }

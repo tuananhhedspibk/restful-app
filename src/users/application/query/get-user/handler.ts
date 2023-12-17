@@ -76,6 +76,7 @@ export class GetUserQueryHandler {
         name: targetUserAggregate.name,
       };
     } catch (err) {
+      console.error(err.stack);
       if (err instanceof QueryError || err instanceof InfrastructureError) {
         throw err;
       }
