@@ -200,6 +200,11 @@ And the outside layer will never be depending on the inside layer, for example:
 
 See `libs/exception` folder for more details.
 
+### Request and response flow (focusing on authen, transaction and error middleware)
+
+![Screen Shot 2023-12-18 at 8 38 49](https://github.com/tuananhhedspibk/restful-app/assets/15076665/0448ee7d-6487-42c9-806e-6a07f4f3c8b5)
+
+
 ## Additional
 
 ### Migration generate
