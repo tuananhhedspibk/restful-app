@@ -144,13 +144,9 @@ export class ErrorInterceptor implements NestInterceptor {
               break;
           }
         } else {
-          switch (err.response.error) {
-            default:
-              responseError = new InternalServerErrorException(
-                err.message || 'Internal Server Error',
-              );
-              break;
-          }
+          responseError = new InternalServerErrorException(
+            err.message || 'Internal Server Error',
+          );
         }
 
         return throwError(() => responseError);
