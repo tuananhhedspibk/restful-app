@@ -18,6 +18,7 @@ import { DomainError } from '@libs/exception/domain';
 
 import { hashPassword, randomlyGenerateSalt } from '@utils/encrypt';
 import { mailRegex, passwordRegex } from '@utils/constants';
+import logger from '@utils/logger';
 
 @CommandHandler(SignupCommand)
 export class SignupCommandHandler {
@@ -31,6 +32,8 @@ export class SignupCommandHandler {
 
     try {
       if (email.length === 0) {
+        logger.fatal.error('Email can not be empty');
+
         throw new CommandError({
           code: CommandErrorCode.BAD_REQUEST,
           message: 'Email can not be empty',
