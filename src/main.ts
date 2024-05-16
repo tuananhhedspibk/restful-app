@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { INestApplication, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ErrorInterceptor } from '@libs/interceptor/error';
+import { LoggerInterceptor } from '@libs/interceptor/logger';
 
 function setupSwagger(app: INestApplication): void {
   const documentBuilder = new DocumentBuilder()
@@ -26,6 +27,7 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
   app.useGlobalInterceptors(new ErrorInterceptor());
+  app.useGlobalInterceptors(new LoggerInterceptor());
 
   setupSwagger(app);
   await app.listen(3000);
