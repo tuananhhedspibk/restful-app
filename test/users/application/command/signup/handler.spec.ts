@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
 
-import { SignupCommandHandler } from './handler';
-import { InjectionToken } from '../../injection-token';
-import { SignupCommand } from './command';
+import { SignupCommandHandler } from '../../../../../src/users/application/command/signup/handler';
+import { InjectionToken } from '../../../../../src/users/application/injection-token';
+import { SignupCommand } from '../../../../../src/users/application/command/signup/command';
 
-import { UserFactory } from '../../../domain/factory/user';
-import { UserAggregate } from '../../../domain/aggregate/user';
-import { IUserRepository } from '../../../domain/repository/user';
+import { UserFactory } from '../../../../../src/users/domain/factory/user';
+import { UserAggregate } from '../../../../../src/users/domain/aggregate/user';
+import { IUserRepository } from '../../../../../src/users/domain/repository/user';
 import {
   CommandError,
   CommandErrorCode,

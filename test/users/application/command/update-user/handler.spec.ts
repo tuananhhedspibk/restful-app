@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
 
-import { IUserRepository } from '../../../domain/repository/user';
-import { UserAggregate } from '../../../domain/aggregate/user';
+import { IUserRepository } from '../../../../../src/users/domain/repository/user';
+import { UserAggregate } from '../../../../../src/users/domain/aggregate/user';
 
-import { UpdateUserCommand } from './command';
-import { UpdateUserCommandHandler } from './handler';
+import { UpdateUserCommand } from '../../../../../src/users/application/command/update-user/command';
+import { UpdateUserCommandHandler } from '../../../../../src/users/application/command/update-user/handler';
+import { InjectionToken } from '../../../../../src/users/application/injection-token';
 
 import * as encrypt from '@utils/encrypt';
 
-import { InjectionToken } from '../../injection-token';
 import {
   CommandErrorCode,
   CommandErrorDetailCode,

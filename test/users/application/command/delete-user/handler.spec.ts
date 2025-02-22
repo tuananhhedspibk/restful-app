@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
 
-import { IUserRepository } from '../../../domain/repository/user';
-import { UserAggregate } from '../../../domain/aggregate/user';
+import { IUserRepository } from '../../../../../src/users/domain/repository/user';
+import { UserAggregate } from '../../../../../src/users/domain/aggregate/user';
 
-import { DeleteUserCommand } from './command';
-import { DeleteUserCommandHandler } from './handler';
-import { InjectionToken } from '../../injection-token';
+import { DeleteUserCommand } from '../../../../../src/users/application/command/delete-user/command';
+import { DeleteUserCommandHandler } from '../../../../../src/users/application/command/delete-user/handler';
+import { InjectionToken } from '../../../../../src/users/application/injection-token';
 import {
   CommandErrorCode,
   CommandErrorDetailCode,
