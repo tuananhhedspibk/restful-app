@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
 
-import { GetUserQueryHandler } from './handler';
-import { GetUserQuery } from './query';
+import { GetUserQueryHandler } from '../../../../../src/users/application/query/get-user/handler';
+import { GetUserQuery } from '../../../../../src/users/application/query/get-user/query';
+import { InjectionToken } from '../../../../../src/users/application/injection-token';
+import { GetUserQueryResult } from '../../../../../src/users/application/query/get-user/result';
 
-import { IUserRepository } from '../../../domain/repository/user';
-import { UserAggregate } from '../../../domain/aggregate/user';
+import { IUserRepository } from '../../../../../src/users/domain/repository/user';
+import { UserAggregate } from '../../../../../src/users/domain/aggregate/user';
 
-import { InjectionToken } from '../../injection-token';
-import { GetUserQueryResult } from './result';
 import {
   QueryError,
   QueryErrorCode,

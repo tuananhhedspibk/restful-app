@@ -3,12 +3,12 @@ import { plainToInstance } from 'class-transformer';
 
 import * as encrypt from '@utils/encrypt';
 
-import { IUserRepository } from '../../../domain/repository/user';
-import { SigninCommand } from './command';
-import { SigninCommandHandler } from './handler';
-import { InjectionToken } from '../../injection-token';
-import { SigninCommandResult } from './result';
-import { UserAggregate } from '../../../domain/aggregate/user';
+import { IUserRepository } from '../../../../../src/users/domain/repository/user';
+import { SigninCommand } from '../../../../../src/users/application/command/signin/command';
+import { SigninCommandHandler } from '../../../../../src/users/application/command/signin/handler';
+import { InjectionToken } from '../../../../../src/users/application/injection-token';
+import { SigninCommandResult } from '../../../../../src/users/application/command/signin/result';
+import { UserAggregate } from '../../../../../src/users/domain/aggregate/user';
 import {
   CommandError,
   CommandErrorCode,

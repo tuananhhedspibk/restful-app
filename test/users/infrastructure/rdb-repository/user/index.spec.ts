@@ -1,14 +1,16 @@
+import { instanceToPlain, plainToInstance } from 'class-transformer';
 import { TestingModule, Test } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSource, Repository } from 'typeorm';
 
 import { config as rdbConfig } from '@config/rdb';
 
-import { UserRepository } from '.';
-import { instanceToPlain, plainToInstance } from 'class-transformer';
-import { UserAggregate } from '../../../domain/aggregate/user';
-import { UserFactory } from '../../../domain/factory/user';
-import { DataSource, Repository } from 'typeorm';
-import { UserEntity } from '../../entity/user';
+import { UserAggregate } from '../../../../../src/users/domain/aggregate/user';
+import { UserFactory } from '../../../../../src/users/domain/factory/user';
+
+import { UserRepository } from '../../../../../src/users/infrastructure/rdb-repository/user';
+import { UserEntity } from '../../../../../src/users/infrastructure/entity/user';
+
 import { users } from './testData';
 
 describe('UserRepository Testing', () => {
