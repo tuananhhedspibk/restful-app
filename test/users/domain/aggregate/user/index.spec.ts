@@ -1,6 +1,7 @@
 import { DomainErrorCode, DomainErrorDetailCode } from '@libs/exception/domain';
-import { UserAggregate } from '.';
-import { UserFactory } from '../../factory/user';
+
+import { UserAggregate } from '../../../../../src/users/domain/aggregate/user';
+import { UserFactory } from '../../../../../src/users/domain/factory/user';
 import { users } from './testData';
 
 const factory = new UserFactory();

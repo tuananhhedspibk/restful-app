@@ -27,7 +27,7 @@ export const randomlyGenerateSalt = (): string => {
 
 export const generateJWT = (userId: string, email: string): string => {
   return jwt.sign({ userId, email }, config.secrete, {
-    expiresIn: config.expireTime,
+    expiresIn: '7D',
   });
 };
 
