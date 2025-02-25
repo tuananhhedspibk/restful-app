@@ -37,6 +37,7 @@ import { UpdateUserCommand } from '../application/command/update-user/command';
 import { UpdateUserCommandHandler } from '../application/command/update-user/handler';
 import { DeleteUserCommand } from '../application/command/delete-user/command';
 import { DeleteUserCommandHandler } from '../application/command/delete-user/handler';
+import { CreateUserJob } from '../application/job/create-user';
 
 import { TransactionInterceptor } from '@libs/interceptor/transaction';
 import { AuthGuard } from '@libs/guard/auth';
@@ -49,6 +50,7 @@ export class UserController {
     private readonly getUserQueryHandler: GetUserQueryHandler,
     private readonly updateUserCommandHandler: UpdateUserCommandHandler,
     private readonly deleteUserCommandHandler: DeleteUserCommandHandler,
+    private readonly createUserJob: CreateUserJob,
   ) {}
 
   @Version('1')
@@ -68,6 +70,7 @@ export class UserController {
     @Body() body: SigninRequestDto,
     @Response() response: ExpressResponse<SigninResponseDto>,
   ) {
+    await this.createUserJob.execute();
     const command = new SigninCommand({
       ...body,
     });
