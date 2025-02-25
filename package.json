@@ -45,6 +45,7 @@
     "rxjs": "^7.8.2",
     "typeorm": "^0.3.20",
     "typeorm-naming-strategies": "^4.1.0",
+    "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -56,6 +57,7 @@
     "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/md5": "^2.3.5",
+    "@types/uuid": "^10.0.0",
     "@types/node": "^20.17.19",
     "@types/supertest": "^2.0.16",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
