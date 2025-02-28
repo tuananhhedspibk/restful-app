@@ -29,6 +29,7 @@ describe('DeleteUserCommand Handler testing', () => {
             isEmailExist: jest.fn(),
             create: jest.fn(),
             findByEmail: jest.fn(),
+            createList: jest.fn(),
             findById: jest.fn(),
             update: jest.fn(),
             delete: jest.fn(),
