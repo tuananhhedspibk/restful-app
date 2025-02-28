@@ -33,6 +33,7 @@ describe('SigninCommand Handler testing', () => {
             isEmailExist: jest.fn(),
             create: jest.fn(),
             findByEmail: jest.fn(),
+            createList: jest.fn(),
           },
         },
       ],

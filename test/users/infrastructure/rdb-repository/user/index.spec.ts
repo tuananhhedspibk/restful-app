@@ -159,6 +159,37 @@ describe('UserRepository Testing', () => {
     });
   });
 
+  describe('createList func test', () => {
+    const users: UserAggregate[] = [];
+    const emails = ['first@email.com', 'second@email.com'];
+
+    beforeAll(async () => {
+      const aggregates = emails.map((email) =>
+        plainToInstance(UserAggregate, {
+          email,
+          password:
+            '$3b$10$NVmx1D6bmEYeMApFJT5Qvus2Au3agrQATQ3KZ2dhzqWE1P3DdSJvi',
+          salt: '$2b$10$NVmx1D6bmEYeMApFJT5Qvu',
+        }),
+      );
+
+      await userRepository.createList(aggregates);
+
+      for (let i = 0; i < emails.length; i++) {
+        const user = await userRepository.findByEmail(emails[i]);
+
+        users.push(user);
+      }
+    });
+
+    it('Data is saved to database', () => {
+      expect(users.length).toBe(2);
+
+      expect(users[0].email).toBe(emails[0]);
+      expect(users[1].email).toBe(emails[1]);
+    });
+  });
+
   describe('update func test', () => {
     beforeAll(async () => {
       const funcRes = await userRepository.update(
