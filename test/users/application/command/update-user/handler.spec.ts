@@ -34,6 +34,7 @@ describe('UpdateUserCommand Handler testing', () => {
             findByEmail: jest.fn(),
             findById: jest.fn(),
             update: jest.fn(),
+            createList: jest.fn(),
           },
         },
       ],
