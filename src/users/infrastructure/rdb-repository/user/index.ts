@@ -108,6 +108,30 @@ export class UserRepository extends BaseRepository implements IUserRepository {
     }
   }
 
+  async createList(aggregates: UserAggregate[]): Promise<void> {
+    try {
+      const repository = this.getRepository(UserEntity);
+
+      const users = aggregates.map((agg: UserAggregate) =>
+        repository.create({
+          email: agg.email,
+          password: agg.getPassword(),
+          name: agg.name,
+          salt: agg.getSalt(),
+        }),
+      );
+
+      await repository.upsert(users, ['email']);
+    } catch (err) {
+      console.error(err.stack);
+
+      throw new InfrastructureError({
+        code: InfrastructureErrorCode.INTERNAL_SERVER_ERROR,
+        message: 'Internal Server Error',
+      });
+    }
+  }
+
   async update(aggregate: UserAggregate): Promise<UserAggregate> {
     try {
       const repository = this.getRepository(UserEntity);

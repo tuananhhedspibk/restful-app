@@ -34,6 +34,7 @@ describe('GetUserQuery Handler testing', () => {
             create: jest.fn(),
             findByEmail: jest.fn(),
             findById: jest.fn(),
+            createList: jest.fn(),
           },
         },
       ],
