@@ -1,4 +1,3 @@
 export enum InjectionToken {
   USER_REPOSITORY = 'USER_REPOSITORY',
-  CREATE_USER_JOB = 'CREATE_USER_JOB',
 }
