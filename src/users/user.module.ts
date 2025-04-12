@@ -16,7 +16,6 @@ import { GetUserQueryHandler } from './application/query/get-user/handler';
 
 import { InjectionToken } from './application/injection-token';
 import { DeleteUserCommandHandler } from './application/command/delete-user/handler';
-import { CreateUserJob } from './application/job/create-user';
 
 const InfrastructureProviders: Provider[] = [
   {
@@ -34,7 +33,6 @@ const CommandHandlers = [
   UpdateUserCommandHandler,
   DeleteUserCommandHandler,
 ];
-const Jobs = [CreateUserJob];
 
 @Module({
   imports: [
@@ -57,7 +55,6 @@ const Jobs = [CreateUserJob];
     ...Factories,
     ...QueryHandlers,
     ...CommandHandlers,
-    ...Jobs,
   ],
 })
 export class UserModule {}
