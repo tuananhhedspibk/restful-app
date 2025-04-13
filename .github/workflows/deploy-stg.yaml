@@ -51,10 +51,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          curl \
-            -v \
-            -X POST -f \
+          curl -X POST https://github.com/tuananhhedspibk/restful-app-k8s/actions/workflows/kustomize.yaml/dispatches \
             -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token $TOKEN" \
-            https://github.com/tuananhhedspibk/restful-app-k8s/actions/workflows/kustomize.yaml/dispatches \
+            -H "Authorization: token $RESTFUL_APP_K8S_PAT" \
             -d '{ "ref": "main" }'
