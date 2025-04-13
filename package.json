@@ -25,6 +25,7 @@
     "test:e2e": "NODE_ENV=test jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@nestjs/cli": "^11.0.4",
     "@nestjs/common": "^11.0.10",
     "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.0.10",
@@ -49,7 +50,6 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@nestjs/cli": "^11.0.4",
     "@nestjs/schematics": "^11.0.1",
     "@nestjs/testing": "^11.0.10",
     "@types/bcrypt": "^5.0.2",
