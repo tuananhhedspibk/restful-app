@@ -32,9 +32,29 @@ jobs:
           aws-region: ap-northeast-1
 
       - name: Login to Amazon ECR
+        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Set docker IMAGE_TAG
         run: |
           echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
           echo "$IMAGE_TAG"
+
+      - name: Build and push image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Trigger k8s repo rewrite workflow
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          curl \
+            -v \
+            -X POST -f \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token $TOKEN" \
+            https://github.com/tuananhhedspibk/restful-app-k8s/actions/workflows/kustomize.yaml/dispatches \
+            -d '{ "ref": "main" }'
