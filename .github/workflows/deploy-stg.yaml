@@ -11,7 +11,7 @@ env:
   AWS_ACCOUNT_ID: ""
 jobs:
   deploy-stg:
-    runs-on: [batchv1, PDDXP000001, cpu-2, memory-4]
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
