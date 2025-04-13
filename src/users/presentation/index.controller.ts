@@ -74,6 +74,8 @@ export class UserController {
 
     const result = await this.signinCommandHandler.execute(command);
 
+    console.log('result', result);
+
     response.send(result);
   }
 
