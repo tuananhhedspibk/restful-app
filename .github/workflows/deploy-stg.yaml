@@ -53,5 +53,5 @@ jobs:
         run: |
           curl -X POST https://github.com/tuananhhedspibk/restful-app-k8s/actions/workflows/kustomize.yaml/dispatches \
             -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${{ secrets.RESTFUL_APP_K8S_PAT }}" \
+            -H "Authorization: token $RESTFUL_APP_K8S_PAT" \
             -d '{ "ref": "main" }'
