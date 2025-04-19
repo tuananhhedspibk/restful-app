@@ -93,7 +93,7 @@ export class SignupCommandHandler {
 
       userAggregate.setEmail(email);
       userAggregate.setPassword(hashedPassword);
-      userAggregate.setName(`${process.env.ENV_NAME}${name}`);
+      userAggregate.setName(`${process.env.NODE_ENV}${name}`);
 
       // For security purpose, each user will have her own salt for hashing password
       // and this salt will be stored in the database for checking password when user login
