@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: dockerfile.dev
     environment:
-      - DATABASE_HOST=database
+      - DATABASE_HOST=localost
       - DATABASE_PORT=5432
       - DATABASE_USERNAME=user
       - DATABASE_PASSWORD=password
