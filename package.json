@@ -25,6 +25,7 @@
     "test:e2e": "NODE_ENV=test jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@nestjs/axios": "^4.0.0",
     "@nestjs/cli": "^11.0.4",
     "@nestjs/common": "^11.0.10",
     "@nestjs/config": "^4.0.0",
@@ -32,6 +33,7 @@
     "@nestjs/cqrs": "^11.0.2",
     "@nestjs/platform-express": "^11.0.10",
     "@nestjs/swagger": "^11.0.4",
+    "@nestjs/terminus": "^11.0.0",
     "@nestjs/typeorm": "^11.0.0",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
@@ -57,9 +59,9 @@
     "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/md5": "^2.3.5",
-    "@types/uuid": "^10.0.0",
     "@types/node": "^20.17.19",
     "@types/supertest": "^2.0.16",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.57.1",
