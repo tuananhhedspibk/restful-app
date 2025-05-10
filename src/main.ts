@@ -30,6 +30,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new LoggerInterceptor());
 
   setupSwagger(app);
-  await app.listen(3000);
+  await app.listen(3000, process.env.SERVER_HOST || 'localhost');
 }
 bootstrap();
