@@ -23,6 +23,4 @@ export const config = {
   namingStrategy: new SnakeNamingStrategy(),
 };
 
-console.log('configconfgi', config);
-
 export const connectionSource = new DataSource(config as DataSourceOptions);
