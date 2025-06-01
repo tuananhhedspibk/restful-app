@@ -81,12 +81,6 @@ docker exec restful-app-nest-1 npm run migration:run
 
 Open browser and go to link `http://localhost:3000/swagger` or `http://127.0.0.1:3000/swagger` for swagger UI and begin testing the API
 
-#### Step 4 (test the API)
-
-You can see this demo video (basically it's the operation on the swagger UI to test the API)
-
-<https://drive.google.com/file/d/1XjYMPrwpI8MUrX9i7IvvVlyUweU7LAyY/view>
-
 ## Run unit test
 
 ### By CLI
