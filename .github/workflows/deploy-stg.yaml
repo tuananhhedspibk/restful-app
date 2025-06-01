@@ -1,0 +1,59 @@
+name: Deploy to stg env
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+    working-directory: .
+
+env:
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  PRODUCT_NAME: restful-app
+  TOKEN: ${{ secrets.ORIGINAL_PERSONAL_ACCESS_TOKEN }}
+jobs:
+  deploy-stg:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    timeout-minutes: 15
+
+    environment:
+      name: stg
+    env:
+      ECR_REPOSITORY: "restful-app"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Set docker IMAGE_TAG
+        run: |
+          echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
+          echo "$IMAGE_TAG"
+
+      - name: Build and push image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Trigger k8s repo rewrite workflow
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          curl -X POST https://api.github.com/repos/tuananhhedspibk/restful-app-k8s/actions/workflows/kustomize.yaml/dispatches \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${TOKEN}" \
+            -d '{ "ref": "main", "inputs": { "product_name": "'"$PRODUCT_NAME"'", "image_tag": "'"$IMAGE_TAG"'", "env": "stg", "ecr_registry": "'"$ECR_REGISTRY"'", "ecr_repo": "'"$ECR_REPOSITORY"'"  } }'
